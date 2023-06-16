@@ -31,6 +31,7 @@ const CreatePostWizard = () => {
       />
       <input
         type="text"
+        value={input}
         className="w-full bg-transparent focus:outline-none"
         placeholder="write something!"
         onChange={(e) => setInput(e.target.value)}
@@ -39,7 +40,6 @@ const CreatePostWizard = () => {
       <button
         onClick={() => {
           mutate({ content: input });
-          setInput("");
         }}
       >
         Post
