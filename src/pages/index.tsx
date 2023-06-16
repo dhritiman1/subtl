@@ -36,11 +36,17 @@ const CreatePostWizard = () => {
         placeholder="write something!"
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            mutate({ content: input });
+          }
+        }}
       />
       <button
         onClick={() => {
           mutate({ content: input });
         }}
+        className="px-2"
       >
         Post
       </button>
