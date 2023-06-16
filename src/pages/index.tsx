@@ -3,9 +3,21 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import { RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
+import { useState } from "react";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
+
+  const [input, setInput] = useState("");
+
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      void ctx.posts.getAll.invalidate();
+    },
+  });
 
   if (!user) return null;
   return (
@@ -21,7 +33,17 @@ const CreatePostWizard = () => {
         type="text"
         className="w-full bg-transparent focus:outline-none"
         placeholder="write something!"
+        onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
+      <button
+        onClick={() => {
+          mutate({ content: input });
+          setInput("");
+        }}
+      >
+        Post
+      </button>
     </div>
   );
 };
@@ -46,10 +68,24 @@ const PostView = (props: PostWithUser) => {
   );
 };
 
+const Feed = () => {
+  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
+  if (postsLoading) return <div>Loading...</div>;
+  return (
+    <div>
+      {data?.map((fullPost) => (
+        <PostView {...fullPost} key={fullPost.post.id} />
+      ))}
+    </div>
+  );
+};
+
 const Home: NextPage = () => {
   const user = useUser();
-  const { data, isLoading } = api.posts.getAll.useQuery();
-  if (isLoading) return <div>Loading...</div>;
+
+  api.posts.getAll.useQuery();
+
+  if (!user.isLoaded) return <div />;
 
   return (
     <>
@@ -64,11 +100,7 @@ const Home: NextPage = () => {
             {!user.isSignedIn && <SignInButton />}
             {user.isSignedIn && <CreatePostWizard />}
           </div>
-          <div>
-            {data?.map((fullPost) => (
-              <PostView {...fullPost} key={fullPost.post.id} />
-            ))}
-          </div>
+          <Feed />
         </div>
       </main>
     </>
