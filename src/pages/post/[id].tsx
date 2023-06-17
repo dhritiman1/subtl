@@ -14,7 +14,7 @@ const PostPage: NextPage<{ id: string }> = ({ id }) => {
   return (
     <>
       <Head>
-        <title>{data.post.content}</title>
+        <title>{`${data.author.name}'s post`}</title>
       </Head>
       <MainLayout>
         <PostView {...data} />
