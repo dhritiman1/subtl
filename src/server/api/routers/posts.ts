@@ -45,6 +45,7 @@ export const postsRouter = createTRPCRouter({
         throw new TRPCError({ code: "NOT_FOUND", message: "Post not found" });
       return (await addUserDataToPosts([post]))[0];
     }),
+
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
