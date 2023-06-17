@@ -8,14 +8,7 @@ import {
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-
-const filterUserForClient = (user: User) => {
-  return {
-    id: user.id,
-    name: user.username,
-    profilePicture: user.profileImageUrl,
-  };
-};
+import filterUserForClient from "~/server/helper/filterUserForClient";
 
 export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
