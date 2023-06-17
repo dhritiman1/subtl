@@ -1,10 +1,10 @@
-import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import Head from "next/head";
 import { RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
+import PostView from "~/component/postview";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -54,30 +54,6 @@ const CreatePostWizard = () => {
         </button>
       )}
       {isPosting && <div className="px-2">...</div>}
-    </div>
-  );
-};
-
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-const PostView = (props: PostWithUser) => {
-  const { post, author } = props;
-  return (
-    <div className="flex w-full flex-row gap-3 border-b px-2 py-3">
-      <Image
-        className="flex h-10 w-10 rounded-full"
-        src={author.profilePicture}
-        alt="profile picture"
-        width={40}
-        height={40}
-      />
-      <Link href={`/post/${post.id}`} className="w-full">
-        <div className="w-full">
-          <Link href={`/@${author.name}`}>
-            <p>@{`${author.name}`}</p>
-          </Link>
-          <p>{post.content}</p>
-        </div>
-      </Link>
     </div>
   );
 };

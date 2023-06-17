@@ -5,6 +5,22 @@ import MainLayout from "~/component/layout";
 import { appRouter } from "~/server/api/root";
 import { api } from "~/utils/api";
 
+const ProfileFeed = (props: { userId: string }) => {
+  const { data, isLoading } = api.posts.getPostByUserId.useQuery({
+    userId: props.userId,
+  });
+  if (isLoading) return <div>Loading...</div>;
+  if (!data || data.length === 0) return <div>empty...</div>;
+
+  return (
+    <div>
+      {data.map((fullPost) => (
+        <PostView {...fullPost} key={fullPost.post.id} />
+      ))}
+    </div>
+  );
+};
+
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data, isLoading } = api.profile.getUserByUsername.useQuery({
     username,
@@ -31,9 +47,10 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
 
           <div>
             <div className="text-2xl font-light">{username}</div>
-            <div className="font-normal text-zinc-400">user bio</div>
+            <div className="font-normal text-zinc-400">TODO: user bio</div>
           </div>
         </div>
+        <ProfileFeed userId={data.id} />
       </MainLayout>
     </>
   );
@@ -42,6 +59,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
 import { createServerSideHelpers } from "@trpc/react-query/server";
 import { prisma } from "~/server/db";
 import Image from "next/image";
+import PostView from "~/component/postview";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const ssg = createServerSideHelpers({
