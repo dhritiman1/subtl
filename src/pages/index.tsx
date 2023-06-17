@@ -1,4 +1,4 @@
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { RouterOutputs, api } from "~/utils/api";
 import Image from "next/image";
@@ -70,6 +70,8 @@ const Feed = () => {
   );
 };
 
+const AppHome = () => {};
+
 const Home: NextPage = () => {
   const user = useUser();
 
@@ -85,7 +87,11 @@ const Home: NextPage = () => {
             {!user.isSignedIn && <SignInButton />}
             {user.isSignedIn && <CreatePostWizard />}
           </div>
-          <Feed />
+          <div>
+            <SignOutButton />
+          </div>
+
+          {user.isSignedIn ? <Feed /> : <div>not signed in</div>}
         </div>
       </main>
     </>
