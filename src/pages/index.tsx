@@ -56,9 +56,7 @@ const CreatePostWizard = () => {
         </button>
       )}
       {isPosting && (
-        <div className="flex h-[80px] w-[30px] items-center justify-center">
-          <Loading height={16} width={16} />
-        </div>
+        <div className="flex w-[30px] items-center justify-center">...</div>
       )}
     </div>
   );

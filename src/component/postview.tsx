@@ -7,13 +7,16 @@ export default function PostView(props: PostWithUser) {
   const { post, author } = props;
   return (
     <div className="flex w-full flex-row gap-3 overflow-hidden border-b border-zinc-800 px-4 py-3">
-      <Image
-        className="flex h-10 w-10 rounded-full"
-        src={author.profilePicture}
-        alt="profile picture"
-        width={40}
-        height={40}
-      />
+      <Link href={`/@${author.name}`}>
+        <Image
+          className="flex h-10 w-10 rounded-full"
+          src={author.profilePicture}
+          alt="profile picture"
+          width={40}
+          height={40}
+        />
+      </Link>
+
       <div className="w-full">
         <Link href={`/@${author.name}`}>
           <p>@{`${author.name}`}</p>

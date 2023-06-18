@@ -50,7 +50,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
 
           <div>
             <div className="text-2xl font-light">{username}</div>
-            <div className="font-normal text-zinc-400">TODO: user bio</div>
+            {/* <div className="font-normal text-zinc-400">TODO: user bio</div> */}
           </div>
         </div>
 
