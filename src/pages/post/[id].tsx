@@ -5,10 +5,11 @@ import PostView from "~/component/postview";
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helper/ssgHelper";
 import { GetStaticProps, NextPage } from "next";
+import { Loading } from "~/component/loading";
 
 const PostPage: NextPage<{ id: string }> = ({ id }) => {
   const { data, isLoading } = api.posts.getPostById.useQuery({ id });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading height={64} width={64} />;
   if (!data) return <div>404</div>;
 
   return (
@@ -16,8 +17,14 @@ const PostPage: NextPage<{ id: string }> = ({ id }) => {
       <Head>
         <title>{`${data.author.name}'s post`}</title>
       </Head>
-      <MainLayout>
-        <PostView {...data} />
+      <MainLayout user={true}>
+        <div className="h-screen w-full border-zinc-800 ">
+          <div className="flex h-[65px] items-center border-b border-zinc-800">
+            <p className="px-4 text-xl font-light">post</p>
+          </div>
+          <PostView {...data} />
+          <div className="px-4 py-3">TODO: comments</div>
+        </div>
       </MainLayout>
     </>
   );

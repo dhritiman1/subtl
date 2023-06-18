@@ -8,7 +8,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ClerkProvider {...pageProps}>
       <Head>
-        <title>---</title>
+        <title>subtl</title>
         <meta name="description" content="shit-posting" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

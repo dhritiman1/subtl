@@ -1,10 +1,13 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+
 import { type NextPage } from "next";
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import PostView from "~/component/postview";
+import MainLayout from "~/component/layout";
+import { Loading } from "~/component/loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -22,7 +25,7 @@ const CreatePostWizard = () => {
 
   if (!user) return null;
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 px-4">
       <Image
         className="flex h-10 w-10 rounded-full"
         src={user.profileImageUrl}
@@ -53,16 +56,19 @@ const CreatePostWizard = () => {
           Post
         </button>
       )}
-      {isPosting && <div className="px-2">...</div>}
+      {isPosting && (
+        <div className="flex w-[30px] items-center justify-center">...</div>
+      )}
     </div>
   );
 };
 
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
-  if (postsLoading) return <div>Loading...</div>;
+  if (postsLoading) return <Loading height={64} width={64} />;
+  if (!data) return <div>ded...</div>;
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-row flex-wrap">
       {data?.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
@@ -75,18 +81,26 @@ const AppHome = () => {};
 const Home: NextPage = () => {
   const user = useUser();
 
-  api.posts.getAll.useQuery();
+  //api.posts.getAll.useQuery();
 
   if (!user.isLoaded) return <div />;
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center">
-        <div className="h-full w-full border-x md:max-w-2xl">
-          <div className="h-[65px] border-b px-2 py-3">
-            {!user.isSignedIn && <SignInButton />}
-            {user.isSignedIn && <CreatePostWizard />}
+      <MainLayout user={user.isSignedIn}>
+        {/* <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+          <div className="text-2xl font-light">subtl</div>
+          <div>
+            {!user.isSignedIn ? (
+              <div className="flex gap-3">
+                <SignInButton /> <p className="text-zinc-400">or</p>{" "}
+                <SignUpButton />
+              </div>
+            ) : (
+              <UserButton appearance={{ baseTheme: dark }} />
+            )}
           </div>
+<<<<<<< HEAD
           <div>
             <SignOutButton />
           </div>
@@ -94,6 +108,40 @@ const Home: NextPage = () => {
           {user.isSignedIn ? <Feed /> : <div>not signed in</div>}
         </div>
       </main>
+=======
+        </div> */}
+        {/* <SignOutButton /> */}
+        {user.isSignedIn && (
+          <div className="min-h-screen">
+            <div className="h-[65px] border-b border-zinc-800 py-3">
+              <CreatePostWizard />
+            </div>
+            <Feed />
+          </div>
+        )}
+
+        {!user.isSignedIn && (
+          <div className="relative">
+            <div className=" z-50 flex h-screen flex-col items-center justify-center p-12 text-center">
+              <h1 className=" mb-2 font-sans text-3xl font-light text-white">
+                subtl
+              </h1>
+              <p className="mb-32 text-xl font-light text-zinc-300 text-opacity-80">
+                experience the power of simplicity and meaningful connections.
+                join our community by{" "}
+                <span className="text-white underline">
+                  <Link href={"/sign-up"}>signing up</Link>
+                </span>{" "}
+                (or{" "}
+                <span className="text-white underline">
+                  <Link href={"/sign-in"}>signing in</Link>
+                </span>
+                ) and discover a world where less is more.
+              </p>
+            </div>
+          </div>
+        )}
+      </MainLayout>
     </>
   );
 };
