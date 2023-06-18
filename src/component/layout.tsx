@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ReactNode } from "react";
 
 type Props = {
-  user?: any;
+  user?: Boolean;
   children: ReactNode;
 };
 
@@ -13,7 +13,7 @@ export default function MainLayout({ children, user }: Props) {
   return (
     <main className="flex min-h-screen flex-row justify-center">
       <div className="sticky top-0 flex h-screen w-0 flex-col items-center gap-3 border-r border-zinc-800 py-1 md:w-14">
-        {user.isSignedIn && (
+        {user && (
           <>
             <div className="h-[65px]">
               <Link href={"/"}>

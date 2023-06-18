@@ -32,9 +32,9 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   return (
     <>
       <Head>
-        <title>---</title>
+        <title>@{data.name}</title>
       </Head>
-      <MainLayout>
+      <MainLayout user={true}>
         <div className="flex flex-row items-center gap-5 border-b border-zinc-800 px-5 py-12">
           <div className="rounded-full bg-[#ffffff23]">
             <Image

@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <MainLayout user={user}>
+      <MainLayout user={user.isSignedIn}>
         {/* <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
           <div className="text-2xl font-light">subtl</div>
           <div>
@@ -104,13 +104,15 @@ const Home: NextPage = () => {
         </div> */}
         {/* <SignOutButton /> */}
         {user.isSignedIn && (
-          <div className="h-[65px] border-b border-zinc-800 py-3">
-            <CreatePostWizard />
-          </div>
+          <>
+            <div className="h-[65px] border-b border-zinc-800 py-3">
+              <CreatePostWizard />
+            </div>
+            <Feed />
+          </>
         )}
-        {user.isSignedIn ? (
-          <Feed />
-        ) : (
+
+        {!user.isSignedIn && (
           <div className="relative">
             <div className=" z-50 flex h-screen flex-col items-center justify-center p-12 text-center">
               <h1 className=" mb-2 font-sans text-3xl font-light text-white">
