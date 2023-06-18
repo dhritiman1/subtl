@@ -1,10 +1,4 @@
-import {
-  SignInButton,
-  SignOutButton,
-  SignUpButton,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import { api } from "~/utils/api";
 import Image from "next/image";
@@ -12,7 +6,7 @@ import { useState } from "react";
 import Link from "next/link";
 import PostView from "~/component/postview";
 import MainLayout from "~/component/layout";
-import { dark } from "@clerk/themes";
+import { Loading } from "~/component/loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -61,14 +55,18 @@ const CreatePostWizard = () => {
           Post
         </button>
       )}
-      {isPosting && <div className="px-2">...</div>}
+      {isPosting && (
+        <div className="flex h-[80px] w-[30px] items-center justify-center">
+          <Loading height={16} width={16} />
+        </div>
+      )}
     </div>
   );
 };
 
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
-  if (postsLoading) return <div>Loading...</div>;
+  if (postsLoading) return <Loading height={64} width={64} />;
   if (!data) return <div>ded...</div>;
   return (
     <div className="flex w-full flex-row flex-wrap">

@@ -5,12 +5,14 @@ import MainLayout from "~/component/layout";
 import { api } from "~/utils/api";
 import { generateSSGHelper } from "~/server/helper/ssgHelper";
 import { GetStaticProps, NextPage } from "next";
+import { Loading } from "~/component/loading";
+import Error from "~/component/error404";
 
 const ProfileFeed = (props: { userId: string }) => {
   const { data, isLoading } = api.posts.getPostByUserId.useQuery({
     userId: props.userId,
   });
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loading height={64} width={64} />;
   if (!data || data.length === 0) return <div>empty...</div>;
 
   return (
@@ -26,8 +28,8 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data, isLoading } = api.profile.getUserByUsername.useQuery({
     username,
   });
-  if (isLoading) return <div>Loading...</div>;
-  if (!data) return <div>404</div>;
+  if (isLoading) return <Loading height={64} width={64} />;
+  if (!data) return <Error />;
 
   return (
     <>
@@ -64,7 +66,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const slug = context.params?.slug;
 
-  if (typeof slug !== "string") throw new Error("no slug");
+  if (typeof slug !== "string") throw Error();
 
   const username = slug.replace("@", "");
 
