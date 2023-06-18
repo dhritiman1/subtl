@@ -3,16 +3,16 @@ import {
   SignOutButton,
   SignUpButton,
   UserButton,
-  UserProfile,
   useUser,
 } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import { RouterOutputs, api } from "~/utils/api";
+import { api } from "~/utils/api";
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 import PostView from "~/component/postview";
 import MainLayout from "~/component/layout";
+import { dark } from "@clerk/themes";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -30,7 +30,7 @@ const CreatePostWizard = () => {
 
   if (!user) return null;
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 px-4">
       <Image
         className="flex h-10 w-10 rounded-full"
         src={user.profileImageUrl}
@@ -89,8 +89,8 @@ const Home: NextPage = () => {
   return (
     <>
       <MainLayout>
-        <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
-          <div className="text-2xl font-light">title</div>
+        {/* <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+          <div className="text-2xl font-light">subtl</div>
           <div>
             {!user.isSignedIn ? (
               <div className="flex gap-3">
@@ -98,13 +98,13 @@ const Home: NextPage = () => {
                 <SignUpButton />
               </div>
             ) : (
-              <UserButton />
+              <UserButton appearance={{ baseTheme: dark }} />
             )}
           </div>
-        </div>
+        </div> */}
         {/* <SignOutButton /> */}
         {user.isSignedIn && (
-          <div className="h-[65px] border-b border-zinc-800 px-2 py-3">
+          <div className="h-[65px] border-b border-zinc-800 py-3">
             <CreatePostWizard />
           </div>
         )}
@@ -112,8 +112,11 @@ const Home: NextPage = () => {
           <Feed />
         ) : (
           <div className="relative">
-            <div className=" z-50 flex h-[calc(100vh-57px)] w-[672px] items-center justify-center p-12 text-center">
-              <p className="mb-32 text-xl font-light text-zinc-300">
+            <div className=" z-50 flex h-screen flex-col items-center justify-center p-12 text-center">
+              <h1 className=" mb-2 font-sans text-3xl font-light text-white">
+                subtl
+              </h1>
+              <p className="mb-32 text-xl font-light text-zinc-300 text-opacity-80">
                 experience the power of simplicity and meaningful connections.
                 join our community by{" "}
                 <span className="text-white underline">

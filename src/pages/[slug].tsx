@@ -35,7 +35,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>---</title>
       </Head>
       <MainLayout>
-        <div className="flex flex-row items-center gap-5 px-5 py-12">
+        <div className="flex flex-row items-center gap-5 border-b border-zinc-800 px-5 py-12">
           <div className="rounded-full bg-[#ffffff23]">
             <Image
               src={data.profilePicture}
@@ -51,6 +51,8 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
             <div className="font-normal text-zinc-400">TODO: user bio</div>
           </div>
         </div>
+
+        <p className="border-b border-zinc-800 px-4 py-3">Feed</p>
         <ProfileFeed userId={data.id} />
       </MainLayout>
     </>
