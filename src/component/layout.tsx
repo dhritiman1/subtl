@@ -34,7 +34,36 @@ export default function MainLayout({ children, user }: Props) {
           </>
         )}
       </div>
-      <div className="h-full w-full  md:max-w-2xl">{children}</div>
+      <div className="min-h-screen w-full  md:max-w-2xl">
+        {children}
+        {user && (
+          <>
+            {" "}
+            <div className="sticky bottom-0 flex h-[60px] w-full items-center justify-center backdrop-blur-md md:hidden">
+              <div className="flex w-[75%] justify-around">
+                <div className="w-20">
+                  <Link className="h-8 w-8" href={"/"}>
+                    <Image
+                      src={"/home.png"}
+                      height={32}
+                      width={32}
+                      alt="go to home page"
+                    />
+                  </Link>
+                </div>
+                <div className="flex w-20 justify-end">
+                  <div className="h-8 w-8 rounded-full bg-gradient-to-br from-zinc-800 via-slate-800 to-zinc-800">
+                    <UserButton
+                      afterSignOutUrl="/"
+                      appearance={{ baseTheme: dark }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
       <div className="sticky top-0 hidden h-screen w-0 border-l border-zinc-800 md:flex md:w-14"></div>
     </main>
   );

@@ -28,7 +28,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data, isLoading } = api.profile.getUserByUsername.useQuery({
     username,
   });
-  if (isLoading) return <Loading height={64} width={64} />;
+
   if (!data) return <Error />;
 
   return (
@@ -37,25 +37,31 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <title>@{data.name}</title>
       </Head>
       <MainLayout user={true}>
-        <div className="flex flex-row items-center gap-5 border-b border-zinc-800 px-5 py-12">
-          <div className="rounded-full bg-[#ffffff23]">
-            <Image
-              src={data.profilePicture}
-              alt={`${username}'s profile picture`}
-              height={96}
-              width={96}
-              className="rounded-full shadow-md shadow-slate-800"
-            />
-          </div>
+        {isLoading ? (
+          <Loading height={64} width={64} />
+        ) : (
+          <div className="min-h-screen">
+            <div className="flex flex-row items-center gap-5 border-b border-zinc-800 px-5 py-12">
+              <div className="rounded-full bg-[#ffffff23]">
+                <Image
+                  src={data.profilePicture}
+                  alt={`${username}'s profile picture`}
+                  height={96}
+                  width={96}
+                  className="rounded-full"
+                />
+              </div>
 
-          <div>
-            <div className="text-2xl font-light">{username}</div>
-            {/* <div className="font-normal text-zinc-400">TODO: user bio</div> */}
-          </div>
-        </div>
+              <div>
+                <div className="text-2xl font-light">{username}</div>
+                {/* <div className="font-normal text-zinc-400">TODO: user bio</div> */}
+              </div>
+            </div>
 
-        <p className="border-b border-zinc-800 px-4 py-3">Feed</p>
-        <ProfileFeed userId={data.id} />
+            <p className="border-b border-zinc-800 px-4 py-3">Feed</p>
+            <ProfileFeed userId={data.id} />
+          </div>
+        )}
       </MainLayout>
     </>
   );

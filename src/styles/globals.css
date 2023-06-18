@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-zinc-900 text-zinc-300 scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-800 scrollbar-corner-zinc-900;
+  @apply bg-zinc-900 text-zinc-300 scrollbar-none scrollbar-track-zinc-900 scrollbar-thumb-zinc-800 scrollbar-corner-zinc-900 md:scrollbar-thin;
 
   user-select: none;
 }

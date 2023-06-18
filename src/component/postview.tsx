@@ -17,12 +17,17 @@ export default function PostView(props: PostWithUser) {
       />
       {/* </Link> */}
 
-      <div className="w-full">
+      <div className="w-full pr-2">
         <Link href={`/@${author.name}`}>
           <p>@{`${author.name}`}</p>
         </Link>
-        <Link href={`/post/${post.id}`} className="h-auto w-full">
-          <p className="w-full ">{post.content}</p>
+        <Link
+          href={`/post/${post.id}`}
+          className="h-auto w-full whitespace-normal break-words"
+        >
+          <p className="w-full whitespace-normal break-words ">
+            {post.content}
+          </p>
         </Link>
       </div>
     </div>
