@@ -35,7 +35,7 @@ export default function MainLayout({ children, user }: Props) {
         )}
       </div>
       <div className="h-full w-full  md:max-w-2xl">{children}</div>
-      <div className="sticky top-0 h-screen w-0 border-l border-zinc-800 md:w-14"></div>
+      <div className="sticky top-0 hidden h-screen w-0 border-l border-zinc-800 md:flex md:w-14"></div>
     </main>
   );
 }
