@@ -3,6 +3,7 @@ import { dark } from "@clerk/themes";
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
   user?: Boolean;
@@ -11,7 +12,13 @@ type Props = {
 
 export default function MainLayout({ children, user }: Props) {
   return (
-    <main className="flex min-h-screen flex-row justify-center">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex min-h-screen flex-row justify-center"
+    >
       <div className="sticky top-0 hidden h-screen w-0 flex-col items-center gap-3 border-r border-zinc-800 py-1 md:flex md:w-14">
         {user && (
           <>
@@ -65,6 +72,6 @@ export default function MainLayout({ children, user }: Props) {
         )}
       </div>
       <div className="sticky top-0 hidden h-screen w-0 border-l border-zinc-800 md:flex md:w-14"></div>
-    </main>
+    </motion.main>
   );
 }

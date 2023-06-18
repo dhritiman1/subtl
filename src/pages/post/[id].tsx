@@ -20,7 +20,7 @@ const PostPage: NextPage<{ id: string }> = ({ id }) => {
       <MainLayout user={true}>
         <div className="h-screen w-full border-zinc-800 ">
           <div className="flex h-[65px] items-center border-b border-zinc-800">
-            <p className="px-4 text-xl font-light">post:</p>
+            <p className="px-4 text-xl font-light">post</p>
           </div>
           <PostView {...data} />
           <div className="px-4 py-3">TODO: comments</div>
