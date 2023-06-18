@@ -100,12 +100,12 @@ const Home: NextPage = () => {
         </div> */}
         {/* <SignOutButton /> */}
         {user.isSignedIn && (
-          <>
+          <div className="min-h-screen">
             <div className="h-[65px] border-b border-zinc-800 py-3">
               <CreatePostWizard />
             </div>
             <Feed />
-          </>
+          </div>
         )}
 
         {!user.isSignedIn && (
