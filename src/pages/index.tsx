@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <MainLayout>
+      <MainLayout user={user}>
         {/* <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
           <div className="text-2xl font-light">subtl</div>
           <div>
@@ -122,7 +122,11 @@ const Home: NextPage = () => {
                 <span className="text-white underline">
                   <Link href={"/sign-up"}>signing up</Link>
                 </span>{" "}
-                and discover a world where less is more.
+                (or{" "}
+                <span className="text-white underline">
+                  <Link href={"/sign-in"}>signing in</Link>
+                </span>
+                ) and discover a world where less is more.
               </p>
             </div>
           </div>
