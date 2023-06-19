@@ -8,6 +8,7 @@ import { GetStaticProps, NextPage } from "next";
 import { Loading } from "~/component/loading";
 import { useUser } from "@clerk/nextjs";
 import { useState } from "react";
+import CommentView from "~/component/commentview";
 
 const CommentWizard = ({ id }: { id: string }) => {
   const { user } = useUser();
@@ -37,7 +38,7 @@ const CommentWizard = ({ id }: { id: string }) => {
         type="text"
         value={input}
         className="w-full bg-transparent focus:outline-none"
-        placeholder="write something!"
+        placeholder="write a comment!"
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
         onKeyDown={(e) => {
@@ -79,7 +80,7 @@ const CommentList = ({ postId }: { postId: string }) => {
   return (
     <div className="flex w-full flex-row flex-wrap">
       {data?.map((fullPost) => (
-        <div key={fullPost.comment.id}> {fullPost.comment.content} </div>
+        <CommentView {...fullPost} key={fullPost.comment.id} />
       ))}
     </div>
   );
@@ -101,13 +102,11 @@ const PostPage: NextPage<{ id: string }> = ({ id }) => {
             <p className="px-4 text-xl font-light">post</p>
           </div>
           <PostView {...data} />
-          <div className="border-b border-zinc-800 px-4 py-3">
-            TODO: comments
-          </div>
+          <div className="border-b border-zinc-800 px-4 py-3">comments</div>
           <div className="border-b border-zinc-800 py-3">
             <CommentWizard id={id} />
           </div>
-          {/* <CommentList postId={id} /> */}
+          <CommentList postId={id} />
         </div>
       </MainLayout>
     </>
