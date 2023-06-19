@@ -29,6 +29,7 @@ export default function MainLayout({ children, user }: Props) {
                   width={56}
                   height={56}
                   alt="application logo"
+                  priority={true}
                 />
               </Link>
             </div>
