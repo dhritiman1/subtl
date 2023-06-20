@@ -19,15 +19,15 @@ export default function MainLayout({ children, user }: Props) {
       transition={{ duration: 0.5 }}
       className="flex min-h-screen flex-row justify-center"
     >
-      <div className="sticky top-0 hidden h-screen w-0 flex-col items-center gap-3 border-r border-zinc-800 py-1 md:flex md:w-14">
+      <div className="sticky top-0 hidden h-screen w-0 flex-col items-center gap-3 border-r border-zinc-800 md:flex md:w-14">
         {user && (
           <>
-            <div className="h-[65px]">
+            <div className="flex h-[65px] items-center">
               <Link href={"/"}>
                 <Image
-                  src={"/image.png"}
-                  width={56}
-                  height={56}
+                  src={"/logo.png"}
+                  width={36}
+                  height={36}
                   alt="application logo"
                   priority={true}
                 />
